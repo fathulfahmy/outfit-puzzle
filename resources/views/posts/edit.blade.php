@@ -8,7 +8,7 @@
             <x-input-error :messages="$errors->get('title')" class="mt-2" />
 
             <textarea name="body" placeholder="Description"
-                class="block w-full mt-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('body', $post->body) }}</textarea>
+                class="block w-full mt-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm whitespace-pre-wrap">{{ old('body', $post->body) }}</textarea>
             <x-input-error :messages="$errors->get('body')" class="mt-2" />
 
             <input type="file" name="image" class="block w-full mt-4">

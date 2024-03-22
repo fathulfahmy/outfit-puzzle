@@ -41,7 +41,7 @@
                         @endif
                     </div>
                     <p class="mt-4 font-bold text-lg text-gray-900">{{ $post->title }}</p>
-                    <p class="mt-4 text-lg text-gray-900">{{ $post->body }}</p>
+                    <p class="mt-4 text-lg text-gray-900 whitespace-pre-wrap">{{ $post->body }}</p>
                     <img src="{{ $post->getFirstMediaUrl() }}" class="mt-4">
                 </div>
             </div>
