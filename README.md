@@ -17,8 +17,9 @@ Find the missing piece for your fashion journey
 3. Post Module (CRUD)
 4. Post media (spatie media)
 5. Post slug (spatie sluggable)
-6. Post listing (public user view)
-7. Post published date (greater or equal to published date)
+6. Admin role (spatie permission)
+7. Post listing (public user view)
+8. Post published date (greater or equal to published date)
 
 ## 2.0 Usage
 
@@ -94,7 +95,13 @@ _Edit profile section_
 _Reset password section_  
 _Delete profile section_
 
-### 3.6 Database
+### 3.6 Admin
+![admin posts CRUD](readme/admin/posts.png)
+_Admin posts CRUD table_
+![admin users CRUD](readme/admin/users.png)
+_Admin users CRUD table_
+
+### 3.7 Database
 
 ![all](readme/database/all.png)
 _App database structure_
