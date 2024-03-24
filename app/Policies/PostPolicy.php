@@ -37,6 +37,9 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
         return $post->user()->is($user);
     }
 
@@ -45,6 +48,9 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
         return $post->user()->is($user);
     }
 

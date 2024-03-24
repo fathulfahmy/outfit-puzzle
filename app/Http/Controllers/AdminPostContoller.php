@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
-class PostController extends Controller
+class AdminPostContoller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        return view('posts.index', [
+        return view('admin.posts.index', [
             'posts' => Post::with('user')->latest()->get(),
         ]);
     }
@@ -27,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -38,13 +36,16 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:140',
             'body' => 'nullable|string|max:255',
-            'image' => 'required'
+            'image' => 'nullable'
         ]);
 
         $post = $request->user()->posts()->create($validated);
-        $post->addMediaFromRequest('image')->toMediaCollection();
 
-        return redirect(route('posts.index'));
+        if ($request->hasFile('image')) {
+            $post->addMediaFromRequest('image')->toMediaCollection();
+        }
+
+        return redirect(route('admin.posts.index'));
     }
 
     /**
@@ -52,7 +53,7 @@ class PostController extends Controller
      */
     public function show(Post $post): View
     {
-        return view('posts.show', [
+        return view('admin.posts.show', [
             'post' => $post
         ]);
     }
@@ -64,7 +65,7 @@ class PostController extends Controller
     {
         Gate::authorize('update', $post);
 
-        return view('posts.edit', [
+        return view('admin.posts.edit', [
             'post' => $post,
         ]);
     }
@@ -88,7 +89,7 @@ class PostController extends Controller
         }
         $post->update($validated);
 
-        return redirect(route('posts.index'));
+        return redirect(route('admin.posts.index'));
     }
 
     /**
@@ -100,6 +101,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect(route('posts.index'));
+        return redirect(route('admin.posts.index'));
     }
 }

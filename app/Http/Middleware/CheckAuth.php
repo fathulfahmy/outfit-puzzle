@@ -17,8 +17,13 @@ class CheckAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            return redirect(route('posts.index')); // Redirect to posts for auth users
+            if ($request->user()->hasRole('admin')) {
+                return redirect(route('admin.index'));
+            } else {
+                return redirect(route('posts.index')); // Redirect to posts for auth users
+            }
         }
+
         return $next($request);
     }
 }
