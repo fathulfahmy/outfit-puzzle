@@ -13,14 +13,17 @@
                             <th scope="col" class="px-6 py-3 w-2/12">
                                 User
                             </th>
-                            <th scope="col" class="px-6 py-3 w-5/12">
+                            <th scope="col" class="px-6 py-3 w-3/12">
                                 Text
                             </th>
                             <th scope="col" class="px-6 py-3 w-2/12">
                                 Image
                             </th>
                             <th scope="col" class="px-6 py-3 w-2/12">
-                                Meta
+                                Slug
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-2/12">
+                                Timestamp
                             </th>
                             <th scope="col" class="px-6 py-3 w-1/12">
                                 Action
@@ -38,19 +41,24 @@
                                 <td class="px-6 py-4">
                                     <span class="font-bold">{{ $post->title }}</span>
                                     <br>
-                                    {{ $post->body }}
+                                    <p class="whitespace-pre-wrap">{{ $post->body }}</p>
                                 </td>
                                 <td class="px-6 py-4">
                                     <img class="max-w-60" src="{{ $post->getFirstMediaUrl() }}" />
                                 </td>
                                 <td class="px-6 py-4">
+                                    <span class="font-semibold">Slug:</span> {{ $post->slug }}
+                                </td>
+                                <td class="px-6 py-4">
                                     <p>
-                                        <span class="font-semibold">Slug:</span> {{ $post->slug }}
+                                        {{ $post->created_at->diffForHumans() }}
                                         <br>
-                                        <span class="font-semibold">Created at: </span> {{ $post->user->created_at }}
+                                        <span class="font-semibold">Created at: </span>
+                                        {{ $post->user->created_at->format('j M Y, g:i a') }}
                                         <br>
                                         @unless ($post->created_at->eq($post->updated_at))
-                                            <span class="font-semibold">Updated at:</span> {{ $post->user->updated_at }}
+                                            <span class="font-semibold">Updated at:</span>
+                                            {{ $post->user->updated_at->format('j M Y, g:i a') }}
                                         @endunless
                                     </p>
                                 </td>

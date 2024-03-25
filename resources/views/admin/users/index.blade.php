@@ -57,12 +57,12 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    Created at {{ $user->created_at }}
+                                    Created at {{ $user->created_at->format('j M Y, g:i a') }}
                                 </td>
 
                                 <td class="px-6 py-4">
                                     @if ($user->email_verified_at != null)
-                                        Verified at {{ $user->email_verified_at }}
+                                        Verified at {{ $user->email_verified_at->format('j M Y, g:i a') }}
                                     @else
                                         Not verified
                                     @endif
@@ -76,9 +76,14 @@
                                         </a>
                                     </div>
                                     <div class="mt-4">
-                                        <div class="max-w-xl">
-                                            @include('admin.users.partials.delete-user-form')
-                                        </div>
+                                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <a href="{{ route('admin.users.destroy', $user) }}"
+                                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                                <x-danger-button class="w-full">{{ __('Delete') }}</x-danger-button>
+                                            </a>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
