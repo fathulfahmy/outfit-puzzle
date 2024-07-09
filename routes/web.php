@@ -37,13 +37,13 @@ Route::resource('posts', PostController::class)
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
-    Route::get('admin/index', function () {
+    Route::get('/admin', function () {
         return view('admin.index', [
             'posts' => Post::with('user')->latest()->get()
         ]);
     })->name('admin.index');
 
-    Route::resource('admin/users', UserController::class)->names([
+    Route::resource('/admin/users', UserController::class)->names([
         'index' => 'admin.users.index',
         'create' => 'admin.users.create',
         'store' => 'admin.users.store',
@@ -52,7 +52,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
         'destroy' => 'admin.users.destroy',
     ]);
 
-    Route::resource('admin/posts', AdminPostContoller::class)->names([
+    Route::resource('/admin/posts', AdminPostContoller::class)->names([
         'index' => 'admin.posts.index',
         'create' => 'admin.posts.create',
         'store' => 'admin.posts.store',
